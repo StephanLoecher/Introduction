@@ -1,33 +1,16 @@
 pipeline{
     agent any
-    
+
     stages{
-        stage("A"){
+        stage("Clone from Github"){
             steps{
-                echo "========executing A========"
+               git clone -b develop https://github.com/StephanLoecher/Introduction.git
             }
-            post{
-                always{
-                    echo "========always========"
-                }
-                success{
-                    echo "========A executed successfully========"
-                }
-                failure{
-                    echo "========A execution failed========"
+        stage("Compress repository"){
+            steps{
+                7z a introduction.7z ./
                 }
             }
-        }
-    }
-    post{
-        always{
-            echo "========always========"
-        }
-        success{
-            echo "========pipeline executed successfully ========"
-        }
-        failure{
-            echo "========pipeline execution failed========"
         }
     }
 }
